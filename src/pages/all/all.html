@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>All</ion-title>
+      </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchText" (ionInput)="onSearch($event)">
+      </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content pullingText="Pull to refresh">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <button ion-item *ngFor="let coin of filteredCoins">
+      {{coin.rank}} {{coin.name}}
+      <span [ngClass]='coin.isRising_24h ? "green" : "red"' float-end>
+        <ion-icon [name]='coin.isRising_24h ? "arrow-up":"arrow-down"'></ion-icon>
+        {{coin.percent_change_24h}}% {{coin.price_usd}}
+      </span>
+    </button>
+  </ion-list>
+</ion-content>
